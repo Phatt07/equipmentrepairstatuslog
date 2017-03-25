@@ -1,0 +1,177 @@
+<div id="createModal" >
+		<ng-form name='newform'>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="container">
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+						<td colspan="2">
+						<div>
+							<label>New Item&nbsp;</label><span data-toggle="tooltip" data-placement="bottom" title="Buttons will appear AFTER you fill out all the required information" class='glyphicon glyphicon-info-sign'></span>
+						</div>
+						</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><label>Job #:</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+								<select type="text" class="form-control" ng-model="form.jobNum" required="true">
+									<option value="" selected disabled>--Choose A Job--</option>
+									<option ng-repeat="job in jobNum track by $index">{{job}}</option>
+								</select>			
+							</td>
+						</tr>
+						<tr>
+							<td><label>Equipment #</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+								<select when-scroll-ends="loadMoreRecords()" type="text" ng-model="form.equipmentNum" value="" class="form-control" required="true">
+								<option value="" selected disabled>--Choose Equipment--</option>
+								<option ng-repeat="equipment in equipments track by $index">{{equipment.equipmentNumber}}</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label>Defects</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+								<div id="defectsBtn" class="btn-group">
+								  <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span id="defects">Select Defect(s)</span></button>
+									<ul class="dropdown-menu scrollable-menu bullet pull-bottom">
+									  <li ng-repeat="defect in allDefects track by $index">
+										  <input type="checkbox" ng-click="checkDefects()" id="{{defect}}" name="defect"></input>
+										  <label for="{{defect}}">{{defect}}</label>
+									  </li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td><label>Defect Description</label></td>
+							<td>
+							<input id="question1" name="question" type="text" value="" data-ng-model='form.defectDesc' class="form-control">	
+							</td>
+						</tr>
+						
+						<tr>
+							<td><label>First Reported Date</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+							<div class="input-group date" id="starttimepicker">
+								<input size="20" id="datetimepicker" required="true" type="text" data-ng-model="form.reportedDate" class="form-control" readonly="true" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+							</td>
+						</tr>
+						<tr>
+							<td><label>First Reported Job</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+							<select type="text" ng-model="form.reportedJob" value="" ng-change="selectEmployee()" class="form-control" required="true">
+
+							<option value="" selected disabled>--Choose A Job--</option>
+							<option ng-repeat="job in jobNum track by $index">{{job}}</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label>Status</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+							<select type="text" ng-model="form.status" value="" ng-change="selectStatus()"  class="form-control" required="true">
+							
+							<option value="" selected disabled>--Choose A Status--</option>
+							<option ng-repeat="stat in status track by $index">{{stat}}</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label>Status Notes</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+							<select type="text" ng-model="form.statusNotes" value="" ng-change="selectEmployee()" class="form-control" required="true">
+							
+							<option value="" selected disabled>--Choose a Note--</option>
+							<option ng-repeat="statNote in statusNotes track by $index">{{statNote}}</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label>Priority</label><small><i class="glyphicon glyphicon-asterisk"></i></small></td>
+							<td>
+							<select type="text" ng-model="form.priority" value="" class="form-control" required="true">
+							
+							<option value="" selected disabled>--Select Priority Level--</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<button class="btn btn-lg btn-primary btn-block" ng-show="newform.$valid" type="button" ng-click="ok()">Submit&nbsp;Request</button>
+							</td>
+							<td>
+							<button class="btn btn-lg btn-primary btn-block" type="button" ng-click="cancel()">Cancel</button>
+							</td>
+							
+						</tr>
+						
+						</tbody>
+				</table>
+				</div>
+			</div>
+		</ng-form>
+	</div>
+<style>
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: rgba(51,51,51,0.7);
+	z-index: 10;
+	display: inline-block;
+	text-align: center;
+	float: none;
+}
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
+}
+.glyphicon.glyphicon-asterisk{
+	top : -5px;
+	color: red;
+	font-size : 50%;
+}
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+  
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
+}
+</style>
+<script>
+
+$(document).ready(function(){
+	$( "#loadEquip" ).scroll(function() {
+
+	});	
+	function loadMore() {
+		angular.element(document.getElementById('createModal')).scope().loadMore();
+		console.log(angular.element(document.getElementById('createModal')).scope())
+	}
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

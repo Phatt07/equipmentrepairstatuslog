@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<h4 class="modal-title">Login Form</h4>
+</div>
+<form ng-submit="LoginModalController.submit(_username, _password)" role='form'>
+	<div class="modal-body">
+		<div class="form-group" ng-class="{'has-error': form._username.$invalid && submitted}">
+			<label for="username" class="control-label">Username</label>
+			<input type="text" id="_username" name="_username" ng-model="_username" class="form-control" placeholder="Username" ng-model-options="{updateOn: 'blur'}" autocorrect="off" autocapitalize="none" required />
+		</div>
+		<div class="form-group" ng-class="{'has-error': form._password.$invalid && submitted}">
+			<label for="password" class="control-label">Password</label>
+			<input type="password" id="_password" name="_password" ng-model="_password" class="form-control" placeholder="Password" ng-model-options="{updateOn: 'blur'}" required />
+		</div>
+	</div>
+	<div class="modal-footer">
+		<p class="caps-lock-alert alert alert-warning message text-center" ng-show="isCapsLockOn">Caps lock is on</p>
+		<div ng-show="showLoggingIn" class="alert alert-info message text-center">Logging In.....</div>
+		<div class="alert alert-danger message text-center" ng-show="showMessage">Login Failed!</div>
+		<button class="btn btn-default" >Submit</button>
+		<button class="btn btn-default" ng-click="LoginModalController.cancel()">Cancel</button>
+	</div>
+</form>
+
+

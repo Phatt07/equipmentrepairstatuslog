@@ -1,0 +1,73 @@
+<div id="printable" class="col-sm-12 col-md-12 col-lg-12" ng-init="getData()" ng-controller="listController">
+	<h2 style="margin-left: 10px; color: #7695A3;">Equipment Repair Status Log</h2>
+	<h3 style="margin-left: 10px; margin-top: 0px !important"><b>Job: {{filterJobNumber}}</b></h3>
+	<form name="validationCode">
+	<div class=" container-fluid spacious-container table-search">
+			<table cellspacing="0" class="table table-striped table-hover" ng-mouseover="loadScroll()">
+				<thead>
+					<tr>
+						<th class="headcol">Equipment #</th>
+						<th class="th-search">Equipment Description</th>
+						<!-- <th style="width: 120px">Job #</th> -->
+						<!-- <th class="th-search">Job Name</th> -->
+						<th class="th-search">Defect</th>
+						<th class="th-search">Defect Description</th>
+						<th class="th-search">First Reported Date</th>
+						<th class="th-search">First Reported Job</th>
+						<th class="th-search">Status</th>
+						<th class="th-search">Status Notes</th>
+						<th style="width: 120px">Priority</th>
+						<th class="th-search">Repair Date</th>
+						<th class="th-search">Repaired By</th>
+						<th class="th-search">Meter Reading</th>
+					</tr>
+				</thead>
+				<!-- <div class="col-sm-2 col-md-2 col-lg-2"> -->
+					<!-- <input id="{{info.Id}}" type="radio" class="with-font" value="" ng-model="selected[info.Id]" ng-change="getSelectedState()" ><label class="checkBoxName" for="{{info.Id}}"></label> -->
+				<!-- </div> -->
+				<!-- <div class="col-sm-10 col-md-10 col-lg-10"> -->
+				<tbody>
+					<tr ng-repeat="info in repairInfo | filter: {Title: filterJobNumber}">
+					<td class="headcol"><a ng-click="EditModal(info)"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;{{info.EquipmentNumber}}</td>
+					<td>{{info.EquipmentDescription}}</td>
+					<!-- <td>{{info.Title}}</td> -->
+					<!-- <td>{{info.JobName}}</td> -->
+					<td>{{info.Defect}}</td>
+					<td>{{info.DefectDescription}}</td>
+					<td>{{info.FirstReportedDate}}</td>
+					<td>{{info.FirstReportedJob}}</td>
+					<td>{{info.Status}}</td>
+					<td>{{info.StatusNotes}}</td>
+					<td>{{info.Priority}}</td>
+					<td>{{info.RepairDate}}</td>
+					<td>{{info.RepairedBy}}</td>
+					<td>{{info.MeterReading}}</td>
+					</tr>
+	<a id="filterButton" ng-click="filterModal()" class="btn btn-primary btn-lg" role="button" style="z-index: 9999;" title="Click to filter list"><span class="glyphicon glyphicon-filter"></span></a>
+	<a id="printButton" ng-click="print();" class="btn btn-primary btn-lg" role="button" style="z-index: 9999;" title="Click to print list"><span class="glyphicon glyphicon-print"></span></a>
+	<a id="back-to-top" ng-click="OpenModal()" class="btn btn-primary btn-lg" role="button" style="z-index: 9999;" title="Click to add new item"><span class="glyphicon glyphicon-plus"></span></a>
+	<br/>
+				</tbody>
+				<!-- </div> -->
+			</table>
+	</div>
+	
+	<div class="overlay">
+    	<i id="loading-img" class="fa fa-spinner fa-spin" style="font-size:36px" ng-show="isLoading"></i>
+	</div>
+	
+	<br/>
+
+	</form>
+</div>
+<script>
+	$(document).ready(function () {
+		$(".spacious-container").floatingScroll();
+	});
+	
+	$(document).ready(function() {
+    $('#example').DataTable( {
+        "dom": '<"top"i>rt<"bottom"flp><"clear">'
+    } );
+});
+</script>

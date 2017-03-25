@@ -1,0 +1,90 @@
+<div>
+	<ng-form name='newform'>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="container">
+				<h3 style="text-align:center;">
+				Filter By Job and optionally Status then click Submit
+				</h3>
+				<table class="table table-condensed">
+					<tr>
+						<td>
+							<select type="text" class="form-control" ng-model="form.filterJobNum" required="true">
+								<option value="" selected disabled>--Choose A Job--</option>
+								<option ng-repeat="job in jobNum track by $index">{{job}}</option>
+							</select>			
+						</td>
+						<!-- <td> -->
+							<!-- <select when-scroll-ends="loadMoreRecords()" type="text" ng-model="form.equipmentNum" value="" class="form-control"> -->
+							<!-- <option value="" selected disabled>--Choose Equipment--</option> -->
+							<!-- <option ng-repeat="equipment in equipments track by $index">{{equipment.equipmentNumber}}</option> -->
+							<!-- </select> -->
+						<!-- </td> -->
+						<!-- <td> -->
+						<!-- <select type="text" ng-model="form.filterStatus" value=""  class="form-control" > -->
+							<!-- <option value="" selected disabled>--Choose A Status--</option> -->
+							<!-- <option ng-repeat="stat in status track by $index">{{stat}}</option> -->
+						<!-- </select> -->
+						<!-- </td> -->
+					</tr>
+					<tr  class="noLines">
+						<td colspan="2">
+						<button class="btn btn-lg btn-primary btn-block" type="button" ng-click="ok()">Submit</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</ng-form>
+</div>
+<style>
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: rgba(51,51,51,0.7);
+	z-index: 10;
+	display: inline-block;
+	text-align: center;
+	float: none;
+}
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
+}
+.glyphicon.glyphicon-asterisk{
+	top : -5px;
+	color: red;
+	font-size : 50%;
+}
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+  
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
+}
+</style>
+<script>
+
+$(document).ready(function(){
+	$( "#loadEquip" ).scroll(function() {
+
+	});	
+	function loadMore() {
+		angular.element(document.getElementById('createModal')).scope().loadMore();
+		console.log(angular.element(document.getElementById('createModal')).scope())
+	}
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
